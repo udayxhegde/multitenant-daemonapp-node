@@ -1,0 +1,8 @@
+*.js
+node_modules/
+.vscode
+.deployment
+.env.local
+!src/static/*.js
+
+

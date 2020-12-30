@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        //"noImplicitAny": true,
+        "noEmitHelpers": true,
+        "target" :"ES2018",
+        "moduleResolution": "node"
+     },
+    "include": [
+        "**/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
+    ]
+
+}
