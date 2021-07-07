@@ -1,0 +1,26 @@
+{
+  "name": "tokenfederate",
+  "version": "1.0.0",
+  "description": "token federate",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \" no test specified\" && exit 0",
+    "build": "tsc -p ./src",
+    "start": "node ./src/app.js"
+  },
+  "author": "uday",
+  "license": "ISC",
+  "dependencies": {
+    "@azure/core-auth": "^1.3.2",
+    "@azure/identity": "^1.3.0",
+    "@azure/keyvault-secrets": "^4.2.0",
+    "@azure/msal-node": "^1.2.0",
+    "@microsoft/microsoft-graph-client": "^2.2.1",
+    "@types/node": "^13.7.7",
+    "dotenv": "^8.2.0",
+    "isomorphic-fetch": "^3.0.0",
+    "pino": "^6.7.0",
+    "pino-pretty": "^4.3.0",
+    "typescript": "^3.8.3"
+  }
+}
