@@ -13,7 +13,6 @@ require('isomorphic-fetch');
 var tenantArray:Array<any> = null;
 var tenantGraphClient={};
 var tenantKeyVaultClient={};
-var tenantKeyVaultClient1={};
 
 appInit();
 
@@ -29,6 +28,7 @@ function appInit() {
         var authProvider = new confidentialClientAuthProvider(tenantId);
         logHelper.logger.info("created auth provider for tenant %s", tenantId);
         tenantGraphClient[tenantId] = graphClient.initWithMiddleware({authProvider});
+        
         logHelper.logger.info("created kv client for vault %s", process.env[tenantId]);
         tenantKeyVaultClient[tenantId] = new kvSecret.SecretClient(process.env[tenantId], 
             new identity.ClientSecretCredential(tenantId, 
@@ -51,6 +51,9 @@ function processAllTenants()
     });
 }
 
+//
+// A function that simply illustrates access to graph, just shows number of users
+//
 async function graphProcessUsers(client) {
     
         client.api("/users").get()
@@ -62,6 +65,9 @@ async function graphProcessUsers(client) {
         });
 }
 
+//
+// A function that simply illustrates access to graph, just shows number of groups
+//
 async function graphProcessGroups(client) {
     
     client.api("/groups").get()
@@ -74,6 +80,10 @@ async function graphProcessGroups(client) {
 }
 
 
+//
+// A function that simply illustrates access to a keyvault, just accesses a secret 
+// and shows its value. 
+//
 async function kvProcessSecret(client) {
     const secretName="test";
     const result = await client.getSecret(secretName)

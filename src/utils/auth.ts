@@ -2,7 +2,6 @@ var msal = require('@azure/msal-node');
 
 var logHelper = require("../utils/loghelper").logger;
 import { AuthenticationProvider } from "@microsoft/microsoft-graph-client";
-import {TokenCredential} from "@azure/core-auth";
 //
 // the scope we are requesting for the access token. .default says give me all the scopes
 // on the app. We can also choose more fine grained scopes if we dont need all of them
@@ -16,7 +15,7 @@ const clientCredentialRequest = {
 // implement the authentication provider for the confidential client protocol used
 // by our daemon app
 //
-class ConfidentialClientAuthenticationProvider implements AuthenticationProvider, TokenCredential {
+class ConfidentialClientAuthenticationProvider implements AuthenticationProvider {
     private confidentialClientApp;
   
     constructor(tenantId: string) {
@@ -51,30 +50,6 @@ class ConfidentialClientAuthenticationProvider implements AuthenticationProvider
                     throw(error);
                 });
     }
-
-    public async getToken(scopes, options) {
-        logHelper.info("In get token");
-        logHelper.info("scopes is %o", scopes);
-
-        var tokenRequest:any = {};
-        tokenRequest.scopes = [];
-        tokenRequest.scopes[0]= scopes;
-        logHelper.info("token request is %o", tokenRequest);
-
-        // user the msal client app that we created to get a token
-        return this.confidentialClientApp.acquireTokenByClientCredential(tokenRequest)
-                .then(function(response) {
-                    logHelper.info("got azure token %o", response);
-                    return response.accessToken;
-                })
-                .catch(function(error) {
-                    logHelper.info("error is %o", error);
-                    logHelper.error("get azure token error %s", JSON.stringify(error));
-                    throw(error);
-                });
-    }
-
-
 }
 
 module.exports = {ConfidentialClientAuthenticationProvider};
